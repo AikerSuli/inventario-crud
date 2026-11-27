@@ -77,6 +77,11 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(producto)
       });
+      if (!respuesta.ok) {
+        const error = await respuesta.json();
+        alert(error.mensaje);
+        return;
+      }
 
       document.getElementById('formulario').reset();
       document.getElementById('id').value = '';
