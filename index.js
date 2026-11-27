@@ -31,6 +31,18 @@ app.post('/productos', (req, res) => {
   res.status(201).json(producto);
 });
 
+// Editar un producto
+app.put('/productos/:id', (req, res) => {
+  const producto = productos.find(p => p.id === Number(req.params.id));
+  if (!producto) {
+    return res.status(404).json({ mensaje: 'Producto no encontrado' });
+  }
+  producto.nombre = req.body.nombre;
+  producto.precio = Number(req.body.precio);
+  producto.stock = Number(req.body.stock);
+  res.json(producto);
+});
+
 app.listen(PUERTO, () => {
   console.log(`Servidor funcionando en http://localhost:${PUERTO}`);
 });
