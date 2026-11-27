@@ -56,6 +56,7 @@
             <td>${p.stock}</td>
             <td>
               <button onclick="editar(${p.id})">Editar</button>
+              <button onclick="eliminar(${p.id})">Eliminar</button>
             </td>
           </tr>`;
       });
@@ -90,6 +91,12 @@
       document.getElementById('precio').value = producto.precio;
       document.getElementById('stock').value = producto.stock;
       document.getElementById('titulo').textContent = 'Editar producto';
+    }
+
+    async function eliminar(id) {
+      if (!confirm('¿Seguro que quieres eliminar este producto?')) return;
+      await fetch('/productos/' + id, { method: 'DELETE' });
+      cargarProductos();
     }
 
     cargarProductos();
