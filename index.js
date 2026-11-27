@@ -19,6 +19,18 @@ app.get('/productos', (req, res) => {
   res.json(productos);
 });
 
+// Crear un producto
+app.post('/productos', (req, res) => {
+  const producto = {
+    id: siguienteId++,
+    nombre: req.body.nombre,
+    precio: Number(req.body.precio),
+    stock: Number(req.body.stock)
+  };
+  productos.push(producto);
+  res.status(201).json(producto);
+});
+
 app.listen(PUERTO, () => {
   console.log(`Servidor funcionando en http://localhost:${PUERTO}`);
 });
