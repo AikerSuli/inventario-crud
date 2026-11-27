@@ -1,0 +1,12 @@
+{
+  "name": "inventario-crud",
+  "version": "1.0.0",
+  "description": "CRUD de productos con Node.js y Express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
