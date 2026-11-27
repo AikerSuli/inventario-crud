@@ -15,6 +15,14 @@
 <body>
   <h1>Inventario de productos</h1>
 
+  <h2>Agregar producto</h2>
+  <form id="formulario">
+    <input type="text" id="nombre" placeholder="Nombre">
+    <input type="number" id="precio" placeholder="Precio" step="0.01">
+    <input type="number" id="stock" placeholder="Stock">
+    <button type="submit">Guardar</button>
+  </form>
+
   <h2>Lista de productos</h2>
   <table>
     <thead>
@@ -47,6 +55,22 @@
           </tr>`;
       });
     }
+
+    document.getElementById('formulario').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const producto = {
+        nombre: document.getElementById('nombre').value,
+        precio: document.getElementById('precio').value,
+        stock: document.getElementById('stock').value
+      };
+      await fetch('/productos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(producto)
+      });
+      document.getElementById('formulario').reset();
+      cargarProductos();
+    });
 
     cargarProductos();
   </script>
