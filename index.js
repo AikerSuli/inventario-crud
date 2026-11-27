@@ -14,6 +14,14 @@ let productos = [
 ];
 let siguienteId = 4;
 
+// Revisa que el producto tenga nombre, precio y stock
+function datosValidos(datos) {
+  if (!datos.nombre || datos.nombre.trim() === '') return false;
+  if (datos.precio === '' || isNaN(datos.precio)) return false;
+  if (datos.stock === '' || isNaN(datos.stock)) return false;
+  return true;
+}
+
 // Listar productos
 app.get('/productos', (req, res) => {
   res.json(productos);
@@ -21,6 +29,9 @@ app.get('/productos', (req, res) => {
 
 // Crear un producto
 app.post('/productos', (req, res) => {
+  if (!datosValidos(req.body)) {
+    return res.status(400).json({ mensaje: 'Todos los campos son obligatorios' });
+  }
   const producto = {
     id: siguienteId++,
     nombre: req.body.nombre,
@@ -36,6 +47,9 @@ app.put('/productos/:id', (req, res) => {
   const producto = productos.find(p => p.id === Number(req.params.id));
   if (!producto) {
     return res.status(404).json({ mensaje: 'Producto no encontrado' });
+  }
+  if (!datosValidos(req.body)) {
+    return res.status(400).json({ mensaje: 'Todos los campos son obligatorios' });
   }
   producto.nombre = req.body.nombre;
   producto.precio = Number(req.body.precio);
