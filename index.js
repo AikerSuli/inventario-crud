@@ -43,6 +43,12 @@ app.put('/productos/:id', (req, res) => {
   res.json(producto);
 });
 
+// Eliminar un producto
+app.delete('/productos/:id', (req, res) => {
+  productos = productos.filter(p => p.id !== Number(req.params.id));
+  res.json({ mensaje: 'Producto eliminado' });
+});
+
 app.listen(PUERTO, () => {
   console.log(`Servidor funcionando en http://localhost:${PUERTO}`);
 });
